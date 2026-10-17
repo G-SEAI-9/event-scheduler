@@ -1,0 +1,149 @@
+{
+  "assignment": "020 - Advanced React I - React Router Framework - Event Scheduler",
+
+  "unlockRoute": true,
+  "onboarding": true,
+  "planFile": "PLAN.md",
+
+  "transcripts": false,
+
+  "integrationBranch": "main",
+  "branchDiscipline": "warn",
+
+  "gated": [
+    "reactState",
+    "reactEffects",
+    "reactRouting",
+    "getRequests",
+    "postRequests",
+    "putRequests",
+    "deleteRequests",
+    "errorHandling",
+    "frontendAuth"
+  ],
+
+  "syntaxCheck": "npx oxlint",
+
+  "guardedExtensions": [".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".html"],
+
+  "neverWritable": [
+    "PLAN.md",
+    ".claude/harness/",
+    ".claude/settings.json",
+    ".claude/settings.local.json",
+    ".claude/hooks/",
+    ".claude/skills/",
+    ".vscode/"
+  ],
+
+  "writableExceptions": [],
+
+  "canonical": ["README.md", "CLAUDE.md", "AGENTS.md", "GEMINI.md", ".github/copilot-instructions.md"],
+
+  "progressDir": ".claude/harness/progress",
+
+  "tasks": [
+    {
+      "id": "FR007",
+      "title": "Declarative React Router setup",
+      "file": "src/App.jsx",
+      "categories": ["reactRouting"]
+    },
+    {
+      "id": "FR009",
+      "title": "Authentication token persistence",
+      "file": "src/lib/auth.js",
+      "categories": ["frontendAuth"]
+    },
+    {
+      "id": "FR011",
+      "title": "Home page event list",
+      "file": "src/pages/HomePage.jsx",
+      "categories": ["getRequests", "reactState", "reactEffects", "errorHandling"]
+    },
+    {
+      "id": "FR012",
+      "title": "Event card navigation",
+      "file": "src/components/EventCard.jsx",
+      "categories": ["reactRouting"]
+    },
+    {
+      "id": "FR013",
+      "title": "Event details page",
+      "file": "src/pages/EventDetailsPage.jsx",
+      "categories": ["getRequests", "reactState", "reactEffects", "reactRouting", "errorHandling"]
+    },
+    {
+      "id": "FR014",
+      "title": "Sign-up page",
+      "file": "src/pages/SignUpPage.jsx",
+      "categories": ["postRequests", "reactState", "reactRouting", "errorHandling"]
+    },
+    {
+      "id": "FR015",
+      "title": "Sign-in page",
+      "file": "src/pages/SignInPage.jsx",
+      "categories": ["postRequests", "reactState", "reactRouting", "frontendAuth", "errorHandling"]
+    },
+    {
+      "id": "FR016",
+      "title": "Protected route layout",
+      "file": "src/layouts/ProtectedLayout.jsx",
+      "categories": ["reactRouting", "frontendAuth"]
+    },
+    {
+      "id": "FR017",
+      "title": "Create event page",
+      "file": "src/pages/CreateEventPage.jsx",
+      "categories": ["postRequests", "reactState", "frontendAuth", "errorHandling"]
+    },
+    {
+      "id": "FR022",
+      "title": "Edit an event",
+      "file": "src/pages/EditEventPage.jsx",
+      "categories": ["getRequests", "putRequests", "reactState", "reactEffects", "reactRouting", "frontendAuth", "errorHandling"]
+    },
+    {
+      "id": "FR023",
+      "title": "Keep event details current",
+      "file": "src/pages/EventDetailsPage.jsx",
+      "categories": ["getRequests", "reactEffects", "errorHandling"]
+    },
+    {
+      "id": "FR024",
+      "title": "Share the signed-in user",
+      "file": "src/layouts/MainLayout.jsx",
+      "categories": ["reactRouting", "frontendAuth"]
+    },
+    {
+      "id": "FR025",
+      "title": "Paginate the event list",
+      "file": "src/pages/HomePage.jsx",
+      "categories": ["getRequests", "reactState", "reactEffects", "errorHandling"]
+    },
+    {
+      "id": "FR026",
+      "title": "Prevent duplicate event creation",
+      "file": "src/pages/CreateEventPage.jsx",
+      "categories": ["reactState"]
+    },
+    {
+      "id": "FR027",
+      "title": "Delete an event",
+      "file": "src/pages/EventDetailsPage.jsx",
+      "categories": ["deleteRequests", "reactRouting", "frontendAuth", "errorHandling"]
+    },
+    {
+      "id": "FR028",
+      "title": "Show a Not Found page",
+      "file": "src/App.jsx",
+      "categories": ["reactRouting", "errorHandling"]
+    },
+    {
+      "id": "FR029",
+      "title": "Sign out",
+      "file": "src/layouts/MainLayout.jsx",
+      "categories": ["reactRouting", "frontendAuth"]
+    }
+  ]
+}
