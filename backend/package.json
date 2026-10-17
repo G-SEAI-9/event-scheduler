@@ -9,14 +9,14 @@
     "seed": "node seed.js"
   },
   "dependencies": {
-    "@sequelize/sqlite3": "^7.0.0-alpha.48",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "express": "^5.3.0",
     "joi": "^18.2.9",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.12.1",
-    "sequelize": "^6.37.8"
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
@@ -24,6 +24,11 @@
     "swagger-ui-express": "^5.0.1"
   },
   "allowScripts": {
-    "sqlite3@5.1.7": true
+    "sqlite3@6.0.1": true,
+    "bcrypt@6.0.0": true,
+    "@scarf/scarf": false
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }
