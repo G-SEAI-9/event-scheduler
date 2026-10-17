@@ -9,6 +9,5 @@
 // Cancel or ignore an older in-flight request when the route changes so its
 // response cannot replace the event selected by the current URL.
 
-// FR027 - Delete an event
-// Ask for confirmation, send an authenticated delete request, handle failure,
-// and return to an event list that no longer shows the deleted event.
+// This page also renders the DeleteEventButton for FR027. Agree with its owner
+// on the props it takes.

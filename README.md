@@ -1,23 +1,21 @@
 # Event Scheduler
 
-Advanced React I: React Router. Group project with a presentation at a
-time your instructor sets. Five days full time, ten days part time.
+Advanced React I with TypeScript. Group project with a presentation at a time
+your instructor sets. Five days full time, ten days part time.
 
-You build the frontend of an event scheduler. Users browse upcoming events, sign
-up, and sign in. Signed-in users create, edit, and delete events. The data comes
-from the Events API, which you run on your own computer.
+You build the frontend of an event scheduler in React and TypeScript. Users
+browse upcoming events, sign up, and sign in. Signed-in users create, edit, and
+delete events. The data comes from the Events API in `backend/`, which you run on
+your own computer.
 
 ## How you work
 
-1. Run `/onboard`. It puts this repo on GitHub and checks your setup. One of you
-   runs it and adds the others as collaborators. The others clone that repo
-   instead of setting the project up again, and run `/onboard` in their clone.
-   This step is done when all checks pass, except the `PLAN.md` check, which step
-   2 fixes.
-2. Meet as a group and write `PLAN.md` together. This step is done when the
-   `PLAN.md` check passes. Until then, the agent writes no code for anyone in the
-   group. See "Before any of that: PLAN.md" below.
-3. Pick a task and create a branch for it, for example
+1. Accept your instructor's invitation to the group's repo in the `G-SEAI-9`
+   organization, clone it, and run `/onboard` in your clone. It checks your setup.
+   This step is done when all checks pass.
+2. At the kickoff, each of you takes one work package. Your tasks are issues on
+   the group's project board. See "Splitting the work" below.
+3. Pick an issue that is assigned to you and create a branch for it, for example
    `git switch -c FR011-home-page`.
 4. Write the code, commit it, and explain it to the agent. This step is done when
    the agent records your sign-off. See "Write it, commit it, explain it" below.
@@ -29,64 +27,78 @@ from the Events API, which you run on your own computer.
 | --- | --- |
 | FR003 | The group works in one public repo on GitHub. Every member is a collaborator. |
 | FR004 | You work on task branches and merge every code change into `main` through a Pull Request. |
-| FR005 | You build on the React and Vite starter in this repo. |
+| FR005 | You build on the React, TypeScript, and Vite starter in `frontend/`. |
 | FR006 | The group agrees on one styling solution at the kickoff and uses it everywhere. |
-| **FR007** | The app's route tree uses React Router in Declarative Mode, including its layouts and outlets. |
-| FR008 | The protected tasks below use React state and effects. |
-| **FR009** | The app stores the authentication token in `localStorage` and reads it from there. |
-| FR010 | The Events API runs locally, preferably at `http://localhost:3001`. |
+| FR007 | The app's route tree uses React Router in Declarative Mode, including its layouts and outlets. |
+| FR008 | The protected tasks below use React state, effects, and TypeScript types. |
+| FR009 | The app stores the authentication token in `localStorage` and reads it from there. |
+| FR010 | The Events API in `backend/` runs locally at `http://localhost:3001`. You use it as it is and don't change its code. |
 | **FR011** | The home page fetches the events and shows them as cards in chronological order. It shows the user when the request fails. |
-| **FR012** | Each event card links to `/events/:id` through React Router. |
+| **FR012** | Each event card receives its event through props typed with the shared `Event` type, and links to `/events/:id` through React Router. |
 | **FR013** | The details page reads the event id from the route and fetches that event. It shows the user when the request fails. |
 | **FR014** | The sign-up page registers a user and shows whether it worked. After a successful sign-up, it navigates to the sign-in page. |
 | **FR015** | The sign-in page signs a user in and shows whether it worked. After a successful sign-in, it stores the returned token and navigates home. |
-| **FR016** | A protected layout guards the routes that need a signed-in user. It redirects signed-out users to the sign-in page. |
+| FR016 | A protected layout guards the routes that need a signed-in user. It redirects signed-out users to the sign-in page. |
 | **FR017** | A signed-in user can create an event through an authenticated request and sees the result. |
 | FR018 | Every request that needs authentication sends the stored token. |
 | FR019 | Users get clear feedback for API errors, network errors, authentication errors, and missing resources. |
 | FR020 | The interface works on mobile and desktop. |
-| FR021 | You build the frontend and deploy the static output to Render. |
+| FR021 | You build the frontend and deploy the static output to Render, with `frontend` as the root directory. |
 | **FR022** | A signed-in user can edit an event. The form loads with the event's current data, and after saving, the page shows the updated event. |
 | **FR023** | The details page cancels or ignores stale requests, so fast navigation never shows the wrong event. |
-| **FR024** | The shared header shows the signed-in user, and the layout passes that user to nested pages. |
+| FR024 | The shared header shows the signed-in user, and the layout passes that user to nested pages. |
 | **FR025** | Users can move through every page of events with previous and next buttons. |
 | **FR026** | While an event is being created, the page shows that it is working and disables the submit button. |
 | **FR027** | A signed-in user can delete an event after confirming. Afterwards, the event list no longer shows it. |
-| **FR028** | Unknown URLs and missing events show a Not Found page. |
-| **FR029** | Users can sign out from the shared header. Signing out clears the session and leaves protected pages. |
+| FR028 | Unknown URLs and missing events show a Not Found page. |
+| FR029 | Users can sign out from the shared header. Signing out clears the session and leaves protected pages. |
+| **FR030** | One shared file defines and exports the types for an event and a user as the Events API returns them. Every page and component imports them from there. |
 
 You write the bold tasks yourself. For the others, you can ask the agent for help.
 
 ## Setup
 
 - Agree on one styling solution at the kickoff and keep it.
-- Keep the committed versions of Vite and React Router, and stay in React Router
+- Keep the committed versions of Vite, TypeScript, and React Router, and keep the
+  committed TypeScript settings, including strict mode. Stay in React Router
   Declarative Mode.
-- Run the Events API at `http://localhost:3001` if you can, so every clone works
-  with the same setup.
+- Don't change the code in `backend/`. Everyone's frontend talks to the same API.
 - You need Node.js 22.22 or newer.
 
-Install and start the app with:
+The repo has two parts, and each runs in its own terminal. Start the Events API
+first:
 
 ```bash
+cd backend
+npm ci
+cp example.env .env
+npm run seed
+npm run dev
+```
+
+It runs at `http://localhost:3001`, and its Swagger docs at
+`http://localhost:3001/api-docs` list every endpoint and field. `npm run seed`
+fills the database with sample users and events once. The `.env` file and the
+database file `db.db` stay on your computer and are never committed.
+
+Then start the frontend in a second terminal:
+
+```bash
+cd frontend
 npm ci
 npm run dev
 ```
 
-The backend is a separate repository. Clone the
-[Events API](https://github.com/WebDev-WBSCodingSchool/events-api) into the folder
-where you keep your projects, then follow its README to run it with npm or Docker.
-You can ask the agent for help with that.
+`npm run build` in `frontend/` checks all types before it builds. You can ask the
+agent for help with any of this.
 
 ## What you write yourself
 
 These are the topics of this module. You write them yourself:
 
 - React state and effects
-- declarative routing
-- GET, POST, PUT, and DELETE requests
-- error handling for requests, and the feedback the user sees
-- the frontend authentication flow
+- TypeScript types: your own types and interfaces, typed props, and typed state
+- GET, POST, PUT, and DELETE requests with `fetch`
 
 The agent won't write any of these for you until you have written one yourself,
 committed it, and explained it.
@@ -95,9 +107,13 @@ You can ask the agent to help with everything else:
 
 - Git, branches, Pull Requests, and reasonable dependency updates during the
   kickoff
-- setting up and running the Events API with npm or Docker
+- setting up and running the Events API in `backend/`
 - page and component markup, sorting events by date, and the styling solution
   your group chose
+- the route tree, layouts, and outlets with React Router
+- the authentication flow: storing the token, the protected layout, the shared
+  header, and signing out
+- error messages and other feedback the user sees
 - the responsive layout, and other UI work that doesn't touch a protected topic
 - deploying to Render, including the redirect files Render needs, but not
   installing hosting CLIs
@@ -157,67 +173,41 @@ is already merged. Tell the agent which Pull Request you reviewed.
 You can never have more reviewed tasks than written ones. So everyone writes their
 first task themselves.
 
-## Before any of that: PLAN.md
+## Before you write code
 
-The agent writes no code for anyone in the group until `PLAN.md` exists and every
-member listed in it has at least one task. Meet first, in one call with one shared
-screen, and write it together.
-
-`PLAN.md` has two parts. First, describe in your own words what you are building,
-who uses it, and how much of it you will build. Name the parts you leave out on
-purpose. This is where two of you find out that you imagined different amounts of
-work, so write down what you agree on.
-
-Second, the split. List every member with their git email, which is the address
-`git config user.email` prints. Then list each task with the name of the person
-who took it:
-
-```markdown
-## Members
-
-- Jane Student — jane.student@mail.com
-- Mo Ahmadi — mo.ahmadi@mail.com
-
-## Tasks
-
-- Login page (T1) — Jane
-- Settings page (T2) — Mo Ahmadi
-```
-
-You can use a list, a table, or prose, in German or English. Each member appears
-twice: once in the member list with their git email, and once on a task. On the
-task line, a name is enough. The agent stores progress under the email, so the
-email has to appear once.
-
-Before you split the tasks, decide which layout holds the signed-in user and the
-token, and what the outlet context passes to nested pages. Sign-in, the protected
-layout, the shared header, and sign-out all depend on that decision.
-
-Run `/onboard`, and the agent guides the conversation. It points out work nobody
-has taken and places where two of you will edit the same code, and it checks the
-file. It won't write any of `PLAN.md`, because the check reads that file, and an
-agent that wrote it could unlock itself.
-
-The agent reads `PLAN.md` again before every code change. If you edit it so that a
-member has no task, the agent stops writing code for everyone until you fix it. If
-someone has left the group, remove them from the member list.
-
-A rough plan is enough, and you can change it later.
+Which issue on the project board is assigned to you? The agent creates your task
+branch from it, named after the task ID, for example `FR011-home-page`. If you have
+several issues, start with one marked `prio: early`.
 
 ## Splitting the work
 
-After the kickoff, your tasks live in GitHub Issues in your group's repo, not in
-`PLAN.md`. `/onboard` can create the issues from your task lines, or you can
-create them by hand. Nothing syncs them back to `PLAN.md`.
+Your instructor has split the work into five packages of about the same size. At
+the kickoff, each of you takes one. Every package owns its own files, so two of
+you rarely edit the same file.
 
-Write the issues yourselves. The agent won't break the work down for you. Once you
-have a draft, it tells you if one person has much more work than the others, if a
-task waits on two other people, or if two of you are about to edit the same code.
+| package | tasks you write yourself | open tasks the agent may help with |
+| --- | --- | --- |
+| A: Event list | FR011, FR025 in `HomePage.tsx`, FR012 in `EventCard.tsx` | FR028 |
+| B: Event details | FR013, FR023 in `EventDetailsPage.tsx` | FR007 |
+| C: Create an event | FR017, FR026 in `CreateEventPage.tsx` | FR016 |
+| D: Accounts and types | FR030 in `types.ts`, FR014 in `SignUpPage.tsx`, FR015 in `SignInPage.tsx` | FR009 |
+| E: Edit and delete | FR022 in `EditEventPage.tsx`, FR027 in `DeleteEventButton.tsx` | FR024, FR029 |
 
-Several tasks share `src/App.jsx`, `src/layouts/MainLayout.jsx`,
-`src/pages/HomePage.jsx`, `src/pages/EventDetailsPage.jsx`, and
-`src/pages/CreateEventPage.jsx`. Give each of these files one owner, or agree on
-the order of the changes. Resolve merge conflicts together.
+FR019, FR020, and FR021 belong to the whole group.
+
+Each task is an issue on the group's project board, with a label for its package.
+Assign yourself to your issues there and move them across the board as you work.
+Three tasks are labelled `prio: early`, because everyone else builds on them:
+FR030 (the shared types), FR007 (the route tree), and FR009 (the token). Merge each
+of them in its own small Pull Request on the first day.
+
+Before you start, decide which layout holds the signed-in user and the token, and
+what the outlet context passes to nested pages. Sign-in, the protected layout, the
+shared header, and sign-out all depend on that decision.
+
+Two places connect packages. `App.tsx` gets a route for every page, so agree on
+the paths at the kickoff. `EventDetailsPage.tsx` renders the `DeleteEventButton`,
+so packages B and E agree on its props. Resolve merge conflicts together.
 
 Ask for help if you are stuck for more than 30 minutes. Use the daily stand-ups.
 
@@ -242,7 +232,6 @@ Some files in this repo are read-only for you and the agent:
   asking for it.
 - `README.md` and `CLAUDE.md` say which code you write yourself and where the
   agent may help. The agent must not change them.
-- `PLAN.md` belongs to your group, and the `PLAN.md` check reads it.
 
 If you think a requirement is wrong or unclear, talk to your instructor.
 

@@ -1,5 +1,5 @@
 {
-  "name": "starter-event-scheduler-js",
+  "name": "event-scheduler-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "lint": "oxlint src vite.config.js",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint src vite.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,10 +18,12 @@
     "react-router": "^8.3.1"
   },
   "devDependencies": {
+    "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.80.0",
+    "typescript": "~6.0.2",
     "vite": "^8.2.2"
   }
 }
