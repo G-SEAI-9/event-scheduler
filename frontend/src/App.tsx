@@ -8,3 +8,26 @@
 // FR028 - Show a Not Found page
 // Add a fallback route for unknown app URLs. Missing event IDs must reach the
 // same clear Not Found experience rather than leaving an empty or broken page.
+
+import { Route, Routes } from 'react-router';
+
+export default function App() {
+  return (
+    <Routes>
+      {/* <Route path='/' element={<MainLayout />}> */}
+      {/* <Route index element={<HomePage />} /> */}
+      {/* <Route path='events/details/:eventId' element={<EventDetailsPage />} /> */}
+
+      {/* <Route path='signup' element={<SignUpPage />} /> */}
+      {/* <Route path='signin' element={<SignInPage />} /> */}
+
+      {/* <Route element={<ProtectedLayout />}> */}
+      {/* <Route path='events/new' element={<CreateEventPage />} /> */}
+      {/* <Route path='events/edit/:eventId' element={<EditEventPage />} /> */}
+      {/* </Route> */}
+
+      {/* <Route path='*' element={<NotFoundPage />} /> */}
+      {/* </Route> */}
+    </Routes>
+  );
+}
