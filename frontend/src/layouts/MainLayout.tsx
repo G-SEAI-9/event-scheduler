@@ -8,3 +8,15 @@
 // FR029 - Sign out
 // Let the user sign out from the shared header. Clear the local session and
 // navigate away from any page that requires authentication.
+
+import { Outlet } from "react-router";
+
+function MainLayout() {
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
+}
+
+export default MainLayout;
