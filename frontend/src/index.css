@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* ========================================
+   EVENTHORIZON – Global Design System
+======================================== */
+
+@theme {
+  /* Background colors */
+  --color-space: #080f1f;
+  --color-surface: #111d33;
+  --color-surface-light: #192a45;
+
+  /* Brand colors */
+  --color-primary: #22d3ee;
+  --color-gold: #d4af37;
+
+  /* Text colors */
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94a3b8;
+}
+
+/* Global styling */
+
+:root {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #f8fafc;
+  background-color: #080f1f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
