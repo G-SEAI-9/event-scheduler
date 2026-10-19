@@ -15,7 +15,7 @@ interface DeleteEventButtonProps {
 
 export function DeleteEventButton({ eventId, onDeleted }: DeleteEventButtonProps) {
   const handleDelete = async () => {
-    if (!window.confirm("Möchtest du wirklich löschen?")) {
+    if (!window.confirm("Do you really want to delete?")) {
       return;
     }
 
@@ -29,7 +29,7 @@ export function DeleteEventButton({ eventId, onDeleted }: DeleteEventButtonProps
       });
 
       if (!response.ok) {
-        throw new Error("Fehler beim Löschen");
+        throw new Error("Error during deletion!");
       }
 
       if (onDeleted) {
@@ -39,7 +39,7 @@ export function DeleteEventButton({ eventId, onDeleted }: DeleteEventButtonProps
       }
     } catch (error) {
       console.error("Delete error:", error);
-      alert("Konnte nicht gelöscht werden.");
+      alert("Could not be deleted!");
     }
   };
 
