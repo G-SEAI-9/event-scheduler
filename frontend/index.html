@@ -1,12 +1,90 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Event Scheduler</title>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+
+    <script>
+
+
+      async function postEventExample() {
+
+        const token = localStorage.getItem("token") ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsImlhdCI6MTc5MjM5NjkxOSwiZXhwIjoxNzk1OTk2OTE5fQ.tmT3I8uttEFW39EJbQDGX20ODyvYPMUpAPI7RG2nQaY"
+
+
+        const exampleEvent = {
+          "title": "Event Title",
+          "description": "Some Description for the Event",
+          "date": "2026-10-19T07:56:08.601Z",
+          "location": "Schloßbezirk 10, 76131 Karlsruhe",
+          "organizerId": 1,
+          "latitude": 8.404746955649602,
+          "longitude": 49.01438194665317
+        }
+
+
+
+        const eventId = 1
+
+        try {
+          // Beispiel für POST /api/events
+          const resPOST = await fetch(`http://localhost:3001/api/events`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(exampleEvent)
+          })
+
+          // Beispiel für PUT /api/events/{id}
+          const resPUT = await fetch(`http://localhost:3001/api/events/${eventId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(exampleEvent)
+          })
+
+          // Beispiel für DELETE /api/events/{id}
+          const resDELETE = await fetch(`http://localhost:3001/api/events/${eventId}`, {
+            method: "DELETE",
+            headers: {
+              "Authorization": `Bearer ${token}`
+            },
+          })
+
+          if (!res) throw new Error("...")
+
+          const data = await res.json()
+
+          // Data in state, User Feedback geben, etc.
+
+        } catch (error) {
+          console.log(error)
+          // User Feedback geben
+        }
+
+
+      }
+
+
+
+      // postEventExample()
+
+
+    </script>
+
+
   </body>
+
 </html>
