@@ -8,11 +8,21 @@
 // FR025 - Paginate the event list
 // Use the API's pagination data to load previous and next pages. Keep the
 // controls, loading state and visible event list in sync with each request.
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Event } from "../lib/types";
 
 export default function HomePage() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    async function loadEvents() {
+      const response = await fetch("/api/events/upcoming");
+      const data = await response.json();
+      setEvents(data);
+    }
+
+    loadEvents();
+  }, []);
 
   return <h1>Upcoming Events</h1>;
 }
