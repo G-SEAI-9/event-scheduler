@@ -65,7 +65,7 @@ export function EditEventPage() {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.message || "Failed to update the event.");
+        throw new Error(errData.error || errData.message || "Failed to update the event.");
       }
 
       setSuccessMessage("Event successfully updated!");
