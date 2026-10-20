@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router";
 
 import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import CreateEventPage from "./pages/CreateEventPage";
 import { EditEventPage } from "./pages/EditEventPage";
-
 
 function PagePlaceholder({ title }: { title: string }) {
   return (
@@ -32,10 +32,7 @@ export default function App() {
         <Route path="signin" element={<PagePlaceholder title="Sign In" />} />
 
         <Route element={<ProtectedLayout />}>
-          <Route
-            path="events/new"
-            element={<PagePlaceholder title="Create Event" />}
-          />
+          <Route path="events/new" element={<CreateEventPage />} />
 
           <Route path="events/edit/:id" element={<EditEventPage />} />
         </Route>
