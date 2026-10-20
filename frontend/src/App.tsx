@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import CreateEventPage from "./pages/CreateEventPage";
 import { EditEventPage } from "./pages/EditEventPage";
 import { EventDetailsPage } from "./pages/EventDetailsPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -31,10 +32,7 @@ export default function App() {
         <Route path="signin" element={<SignInPage />} />
 
         <Route element={<ProtectedLayout />}>
-          <Route
-            path="events/new"
-            element={<PagePlaceholder title="Create Event" />}
-          />
+          <Route path="events/new" element={<CreateEventPage />} />
 
           <Route path="events/:id/edit" element={<EditEventPage />} />
         </Route>
