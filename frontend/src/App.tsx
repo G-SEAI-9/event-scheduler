@@ -3,6 +3,8 @@ import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import { EditEventPage } from "./pages/EditEventPage";
 import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+
 
 function PagePlaceholder({ title }: { title: string }) {
   return (
@@ -28,7 +30,7 @@ export default function App() {
 
         <Route path="signup" element={<SignUpPage />} />
 
-        <Route path="signin" element={<PagePlaceholder title="Sign In" />} />
+        <Route path="signin" element={<SignInPage />} />
 
         <Route element={<ProtectedLayout />}>
           <Route
