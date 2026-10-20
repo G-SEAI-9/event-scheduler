@@ -1,10 +1,18 @@
-// This file is yours to type. The markers name requirements so the brief,
-// issues, agent and source file all use the same words.
+import { Outlet } from "react-router";
+import Navbar from "../components/Navbar";
 
-// FR024 - Share the signed-in user
-// Display the signed-in user's name or an image placeholder in the shared
-// header, and make that user available to nested pages through outlet context.
+export default function MainLayout() {
+  return (
+    <div className="flex min-h-screen flex-col bg-space text-text-main">
+      <Navbar />
 
-// FR029 - Sign out
-// Let the user sign out from the shared header. Clear the local session and
-// navigate away from any page that requires authentication.
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
+      <footer className="border-t border-white/10 bg-surface px-6 py-6 text-center text-sm text-text-muted">
+        © {new Date().getFullYear()} EVENTHORIZON. All rights reserved.
+      </footer>
+    </div>
+  );
+}

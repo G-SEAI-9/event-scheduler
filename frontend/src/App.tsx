@@ -1,33 +1,46 @@
-// This file is yours to type. The markers name requirements so the brief,
-// issues, agent and source file all use the same words.
+import { Route, Routes } from "react-router";
+import MainLayout from "./layouts/MainLayout";
+import ProtectedLayout from "./layouts/ProtectedLayout";
+import { EditEventPage } from "./pages/EditEventPage";
+import SignUpPage from "./pages/SignUpPage";
 
-// FR007 - Declarative React Router setup
-// Define the complete route tree in Declarative Mode. Connect the main and
-// protected layouts, page components, route parameters and nested outlets.
-
-// FR028 - Show a Not Found page
-// Add a fallback route for unknown app URLs. Missing event IDs must reach the
-// same clear Not Found experience rather than leaving an empty or broken page.
-
-import { Route, Routes } from 'react-router';
+function PagePlaceholder({ title }: { title: string }) {
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-16">
+      <h1 className="text-3xl font-bold text-text-main">{title}</h1>
+      <p className="mt-4 text-text-muted">
+        This page is currently under development.
+      </p>
+    </section>
+  );
+}
 
 export default function App() {
   return (
     <Routes>
-      {/* <Route path='/' element={<MainLayout />}> */}
-      {/* <Route index element={<HomePage />} /> */}
-      {/* <Route path='events/details/:eventId' element={<EventDetailsPage />} /> */}
+      <Route element={<MainLayout />}>
+        <Route index element={<PagePlaceholder title="Home" />} />
 
-      {/* <Route path='signup' element={<SignUpPage />} /> */}
-      {/* <Route path='signin' element={<SignInPage />} /> */}
+        <Route
+          path="events/details/:eventId"
+          element={<PagePlaceholder title="Event Details" />}
+        />
 
-      {/* <Route element={<ProtectedLayout />}> */}
-      {/* <Route path='events/new' element={<CreateEventPage />} /> */}
-      {/* <Route path='events/edit/:eventId' element={<EditEventPage />} /> */}
-      {/* </Route> */}
+        <Route path="signup" element={<SignUpPage />} />
 
-      {/* <Route path='*' element={<NotFoundPage />} /> */}
-      {/* </Route> */}
+        <Route path="signin" element={<PagePlaceholder title="Sign In" />} />
+
+        <Route element={<ProtectedLayout />}>
+          <Route
+            path="events/new"
+            element={<PagePlaceholder title="Create Event" />}
+          />
+
+          <Route path="events/edit/:id" element={<EditEventPage />} />
+        </Route>
+
+        <Route path="*" element={<PagePlaceholder title="Page Not Found" />} />
+      </Route>
     </Routes>
   );
 }
