@@ -5,7 +5,7 @@ import { EditEventPage } from "./pages/EditEventPage";
 import { EventDetailsPage } from "./pages/EventDetailsPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
-
+import HomePage from "./pages/HomePage";
 
 function PagePlaceholder({ title }: { title: string }) {
   return (
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index element={<PagePlaceholder title="Home" />} />
+        <Route index element={<HomePage />} />
 
         <Route path="events/:id" element={<EventDetailsPage />} />
 
@@ -36,7 +36,7 @@ export default function App() {
             element={<PagePlaceholder title="Create Event" />}
           />
 
-      <Route path="events/:id/edit" element={<EditEventPage />} />
+          <Route path="events/:id/edit" element={<EditEventPage />} />
         </Route>
 
         <Route path="*" element={<PagePlaceholder title="Page Not Found" />} />
