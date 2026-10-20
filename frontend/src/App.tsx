@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router";
-
 import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import { EditEventPage } from "./pages/EditEventPage";
 import { EventDetailsPage } from "./pages/EventDetailsPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function PagePlaceholder({ title }: { title: string }) {
   return (
@@ -24,7 +24,7 @@ export default function App() {
 
         <Route path="events/:id" element={<EventDetailsPage />} />
 
-        <Route path="signup" element={<PagePlaceholder title="Sign Up" />} />
+        <Route path="signup" element={<SignUpPage />} />
 
         <Route path="signin" element={<PagePlaceholder title="Sign In" />} />
 
