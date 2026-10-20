@@ -4,12 +4,9 @@
 // FR022 - Edit an event
 // Load the route's event into a prefilled form, keep edits in React state, send
 // an authenticated update, handle failures, and show the saved event.
-// FR022 - Edit an event
-// Load the route's event into a prefilled form, keep edits in React state, send
-// an authenticated update, handle failures, and show the saved event.
 
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useState, useEffect, type FormEvent } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { getToken } from "../lib/auth";
 
 export function EditEventPage() {
@@ -32,7 +29,7 @@ export function EditEventPage() {
       try {
         const response = await fetch(`/api/events/${id}`);
         if (!response.ok) {
-          throw new Error("Error loading the event.");
+          throw new Error("Failed to load event data.");
         }
         const data = await response.json();
         setTitle(data.title || "");
@@ -47,7 +44,7 @@ export function EditEventPage() {
     fetchEvent();
   }, [id]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!id) return;
 
@@ -68,7 +65,7 @@ export function EditEventPage() {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.message || "Error updating the event.");
+        throw new Error(errData.message || "Failed to update the event.");
       }
 
       setSuccessMessage("Event successfully updated!");
@@ -85,71 +82,73 @@ export function EditEventPage() {
 
   if (loading) {
     return (
-      <div className="max-w-xl mx-auto p-6 text-center">
-        <p className="text-gray-600">Loading event data...</p>
+      <div className="mx-auto max-w-xl p-6 text-center text-text-muted">
+        <p>Loading event data...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white shadow rounded-lg mt-8">
-      <h1 className="text-2xl font-bold mb-6">Edit event</h1>
+    <div className="mx-auto max-w-xl rounded-2xl border border-white/10 bg-surface p-8 shadow-xl mt-12 text-text-main">
+      <h1 className="mb-6 text-3xl font-bold tracking-tight">
+        Edit <span className="text-primary">Event</span>
+      </h1>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded border border-red-300">
+        <div className="mb-6 rounded-lg border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-400">
           {error}
         </div>
       )}
 
       {successMessage && (
-        <div className="mb-4 p-3 bg-green-100 text-green-700 rounded border border-green-300">
+        <div className="mb-6 rounded-lg border border-primary/40 bg-primary/10 p-4 text-sm text-primary">
           {successMessage}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Titel
+          <label className="mb-2 block text-sm font-semibold text-text-main">
+            Title
           </label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-lg border border-white/10 bg-space px-4 py-3 text-text-main placeholder-text-muted transition focus:border-primary focus:outline-none"
             required
             disabled={submitting}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Beschreibung
+          <label className="mb-2 block text-sm font-semibold text-text-main">
+            Description
           </label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={4}
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-lg border border-white/10 bg-space px-4 py-3 text-text-main placeholder-text-muted transition focus:border-primary focus:outline-none"
             disabled={submitting}
           />
         </div>
 
-        <div className="flex justify-end space-x-3 pt-2">
+        <div className="flex justify-end gap-4 pt-2">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 transition"
+            className="rounded-lg border border-white/20 px-6 py-3 font-semibold text-text-main transition hover:bg-white/10"
             disabled={submitting}
           >
-            Abbrechen
+            Cancel
           </button>
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
+            className="rounded-lg bg-primary px-6 py-3 font-bold text-space shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-300 disabled:opacity-50"
             disabled={submitting}
           >
-            {submitting ? "Save..." : "Save changes"}
+            {submitting ? "Saving..." : "Save changes"}
           </button>
         </div>
       </form>
