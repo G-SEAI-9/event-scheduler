@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import { EditEventPage } from "./pages/EditEventPage";
-
+import { EventDetailsPage } from "./pages/EventDetailsPage";
 
 function PagePlaceholder({ title }: { title: string }) {
   return (
@@ -22,10 +22,7 @@ export default function App() {
       <Route element={<MainLayout />}>
         <Route index element={<PagePlaceholder title="Home" />} />
 
-        <Route
-          path="events/details/:eventId"
-          element={<PagePlaceholder title="Event Details" />}
-        />
+        <Route path="events/:id" element={<EventDetailsPage />} />
 
         <Route path="signup" element={<PagePlaceholder title="Sign Up" />} />
 
@@ -37,7 +34,7 @@ export default function App() {
             element={<PagePlaceholder title="Create Event" />}
           />
 
-          <Route path="events/edit/:id" element={<EditEventPage />} />
+      <Route path="events/:id/edit" element={<EditEventPage />} />
         </Route>
 
         <Route path="*" element={<PagePlaceholder title="Page Not Found" />} />

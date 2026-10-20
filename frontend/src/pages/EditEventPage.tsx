@@ -6,7 +6,7 @@
 // an authenticated update, handle failures, and show the saved event.
 
 import { useState, useEffect, type FormEvent } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { getToken } from "../lib/auth";
 
 export function EditEventPage() {
