@@ -159,7 +159,6 @@ function CreateEventPage() {
       description: formData.description.trim(),
       date: new Date(formData.date).toISOString(),
       location: formData.location.trim(),
-      organizerID: ,
       latitude: formData.latitude === "" ? null : Number(formData.latitude),
       longitude: formData.longitude === "" ? null : Number(formData.longitude),
     };
