@@ -16,7 +16,7 @@
 // This page also renders the DeleteEventButton.
 
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router";
 import { DeleteEventButton } from "../components/DeleteEventButton";
 
 interface EventData {

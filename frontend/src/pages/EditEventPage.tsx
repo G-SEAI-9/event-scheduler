@@ -6,7 +6,7 @@
 // an authenticated update, handle failures, and show the saved event.
 
 import { useState, useEffect, type FormEvent } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { getToken } from "../lib/auth";
 
 export function EditEventPage() {
@@ -65,7 +65,7 @@ export function EditEventPage() {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.message || "Failed to update the event.");
+        throw new Error(errData.error || errData.message || "Failed to update the event.");
       }
 
       setSuccessMessage("Event successfully updated!");
