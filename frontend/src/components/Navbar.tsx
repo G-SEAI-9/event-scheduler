@@ -1,8 +1,20 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import type { User } from "../lib/types";
 
-export default function Navbar() {
+type NavbarProps = {
+  isAuthenticated: boolean;
+  user: User | null;
+  onSignOut: () => void;
+};
+
+export default function Navbar({
+  isAuthenticated,
+  user,
+  onSignOut,
+}: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinks = [
     { label: "Events", path: "/" },
@@ -12,6 +24,14 @@ export default function Navbar() {
   function closeMenu() {
     setMenuOpen(false);
   }
+
+  function handleSignOut() {
+    onSignOut();
+    closeMenu();
+    navigate("/signin");
+  }
+
+  const displayName = user?.name?.trim() || "Signed in";
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-space/95 backdrop-blur-xl">
@@ -46,19 +66,37 @@ export default function Navbar() {
 
         {/* Desktop account buttons */}
         <div className="hidden items-center gap-3 md:flex">
-          <NavLink
-            to="/signin"
-            className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-main transition hover:border-primary hover:text-primary"
-          >
-            Log In
-          </NavLink>
+          {isAuthenticated ? (
+            <>
+              <span className="text-sm font-medium text-primary">
+                {displayName}
+              </span>
 
-          <NavLink
-            to="/signup"
-            className="rounded-lg bg-primary px-5 py-2 text-sm font-bold text-space transition hover:bg-cyan-300"
-          >
-            Sign Up
-          </NavLink>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-main transition hover:border-primary hover:text-primary"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to="/signin"
+                className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-main transition hover:border-primary hover:text-primary"
+              >
+                Log In
+              </NavLink>
+
+              <NavLink
+                to="/signup"
+                className="rounded-lg bg-primary px-5 py-2 text-sm font-bold text-space transition hover:bg-cyan-300"
+              >
+                Sign Up
+              </NavLink>
+            </>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -94,21 +132,39 @@ export default function Navbar() {
 
             <div className="my-1 border-t border-white/10" />
 
-            <NavLink
-              to="/signin"
-              onClick={closeMenu}
-              className="rounded-lg border border-white/20 px-5 py-3 text-center font-semibold text-text-main"
-            >
-              Log In
-            </NavLink>
+            {isAuthenticated ? (
+              <>
+                <span className="text-center text-sm font-medium text-primary">
+                  {displayName}
+                </span>
 
-            <NavLink
-              to="/signup"
-              onClick={closeMenu}
-              className="rounded-lg bg-primary px-5 py-3 text-center font-bold text-space"
-            >
-              Sign Up
-            </NavLink>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="rounded-lg border border-white/20 px-5 py-3 text-center font-semibold text-text-main"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  to="/signin"
+                  onClick={closeMenu}
+                  className="rounded-lg border border-white/20 px-5 py-3 text-center font-semibold text-text-main"
+                >
+                  Log In
+                </NavLink>
+
+                <NavLink
+                  to="/signup"
+                  onClick={closeMenu}
+                  className="rounded-lg bg-primary px-5 py-3 text-center font-bold text-space"
+                >
+                  Sign Up
+                </NavLink>
+              </>
+            )}
           </div>
         </div>
       )}
