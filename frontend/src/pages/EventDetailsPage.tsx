@@ -1,7 +1,6 @@
 // This file is yours to type. The markers name requirements so the brief,
 // issues, agent and source file all use the same words.
 
-
 // This page also renders the DeleteEventButton for FR027. Agree with its owner
 // on the props it takes.
 // FR013 - Event details page
@@ -18,6 +17,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 import { DeleteEventButton } from "../components/DeleteEventButton";
+import NotFoundPage from "./NotFoundPage";
 
 interface EventData {
   id: number;
@@ -36,6 +36,7 @@ export function EventDetailsPage() {
   const [event, setEvent] = useState<EventData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -46,13 +47,24 @@ export function EventDetailsPage() {
     const fetchEventDetails = async () => {
       setLoading(true);
       setError(null);
+      setNotFound(false);
 
       try {
         const response = await fetch(`/api/events/${id}`, { signal });
+        if (response.status === 404) {
+          setNotFound(true);
+          return;
+        }
         if (!response.ok) {
           throw new Error("Failed to load event details.");
         }
         const data = await response.json();
+
+        if (data === null) {
+          setNotFound(true);
+          return;
+        }
+
         setEvent(data);
       } catch (err: any) {
         if (err.name !== "AbortError") {
@@ -79,7 +91,9 @@ export function EventDetailsPage() {
       </div>
     );
   }
-
+  if (notFound) {
+    return <NotFoundPage />;
+  }
   if (error || !event) {
     return (
       <div className="mx-auto max-w-3xl p-12 text-center">
@@ -115,7 +129,10 @@ export function EventDetailsPage() {
           >
             Edit Event
           </Link>
-          <DeleteEventButton eventId={event.id} onDeleted={() => navigate("/")} />
+          <DeleteEventButton
+            eventId={event.id}
+            onDeleted={() => navigate("/")}
+          />
         </div>
       </div>
 
@@ -141,7 +158,9 @@ export function EventDetailsPage() {
           <p className="mb-6 text-sm text-text-muted">📍 {event.location}</p>
 
           <div className="border-t border-white/10 pt-6">
-            <h2 className="mb-3 text-lg font-bold text-text-main">About this event</h2>
+            <h2 className="mb-3 text-lg font-bold text-text-main">
+              About this event
+            </h2>
             <p className="leading-relaxed text-slate-300 whitespace-pre-line">
               {event.description || "No description provided."}
             </p>
