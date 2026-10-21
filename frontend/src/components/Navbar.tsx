@@ -1,16 +1,34 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import type { User } from "../lib/types";
 
-export default function Navbar() {
+type NavbarProps = {
+  isAuthenticated : boolean;
+  user: User | null;
+  onSignOut: () => void;
+};
+
+export default function Navbar({isAuthenticated, user, onSignOut }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinks = [
     { label: "Events", path: "/" },
     { label: "Create Event", path: "/events/new" },
   ];
 
+  // FR024 - Name shown in the header. Fallback if only the token is known
+  const displayName = user?.name ?? "Signed in";
+
   function closeMenu() {
     setMenuOpen(false);
+  }
+
+  // FR029 - Clear the session and leave any protected page.
+  function handleSignOut() {
+    onSignOut();
+    closeMenu();
+    navigate("/", {replace:true});
   }
 
   return (
@@ -27,38 +45,56 @@ export default function Navbar() {
           </span>
         </NavLink>
 
-        {/* Desktop navigation */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              className={({ isActive }) =>
-                `text-sm font-medium transition-colors hover:text-primary ${
-                  isActive ? "text-primary" : "text-text-muted"
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
+    {/* Desktop navigation */}
+    <div className="hidden items-center gap-8 md:flex">
+     {navLinks.map((link) => (
+      <NavLink
+        key={link.path}
+        to={link.path}
+        className={({ isActive }) =>
+          `text-sm font-medium transition-colors hover:text-primary ${
+            isActive ? "text-primary" : "text-text-muted"
+            }`
+          }
+        >
+            {link.label}
+          </NavLink>
           ))}
         </div>
 
         {/* Desktop account buttons */}
-        <div className="hidden items-center gap-3 md:flex">
-          <NavLink
-            to="/signin"
-            className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-main transition hover:border-primary hover:text-primary"
-          >
-            Log In
-          </NavLink>
-
-          <NavLink
-            to="/signup"
-            className="rounded-lg bg-primary px-5 py-2 text-sm font-bold text-space transition hover:bg-cyan-300"
-          >
-            Sign Up
-          </NavLink>
+    <div className="hidden items-center gap-3 md:flex">
+          {isAuthenticated ? (
+            <>
+              <span className="text-sm text-text-muted">
+                Hi, <span className="font-semibold text-gold">{displayName}</span>
+              </span>
+ 
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-main transition hover:border-primary hover:text-primary"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to="/signin"
+                className="rounded-lg border border-white/20 px-5 py-2 text-sm font-semibold text-text-main transition hover:border-primary hover:text-primary"
+              >
+                Log In
+              </NavLink>
+ 
+              <NavLink
+                to="/signup"
+                className="rounded-lg bg-primary px-5 py-2 text-sm font-bold text-space transition hover:bg-cyan-300"
+              >
+                Sign Up
+              </NavLink>
+            </>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -94,21 +130,40 @@ export default function Navbar() {
 
             <div className="my-1 border-t border-white/10" />
 
-            <NavLink
-              to="/signin"
-              onClick={closeMenu}
-              className="rounded-lg border border-white/20 px-5 py-3 text-center font-semibold text-text-main"
-            >
-              Log In
-            </NavLink>
-
-            <NavLink
-              to="/signup"
-              onClick={closeMenu}
-              className="rounded-lg bg-primary px-5 py-3 text-center font-bold text-space"
-            >
-              Sign Up
-            </NavLink>
+            {isAuthenticated ? (
+              <>
+                <p className="text-center text-sm text-text-muted">
+                  Signed in as{" "}
+                  <span className="font-semibold text-gold">{displayName}</span>
+                </p>
+ 
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="rounded-lg border border-white/20 px-5 py-3 text-center font-semibold text-text-main"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  to="/signin"
+                  onClick={closeMenu}
+                  className="rounded-lg border border-white/20 px-5 py-3 text-center font-semibold text-text-main"
+                >
+                  Log In
+                </NavLink>
+ 
+                <NavLink
+                  to="/signup"
+                  onClick={closeMenu}
+                  className="rounded-lg bg-primary px-5 py-3 text-center font-bold text-space"
+                >
+                  Sign Up
+                </NavLink>
+              </>
+            )}
           </div>
         </div>
       )}
