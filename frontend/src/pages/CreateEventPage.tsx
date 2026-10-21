@@ -208,8 +208,9 @@ function CreateEventPage() {
         return;
       }
 
+      const createdEvent = await response.json();
       setFormData(emptyForm);
-      navigate("/");
+      navigate(`/events/${createdEvent.id}`);
     } catch {
       setErrorMessage(
         "Die Anfrage konnte nicht gesendet werden. Bitte prüfe deine Verbindung und versuche es erneut.",
