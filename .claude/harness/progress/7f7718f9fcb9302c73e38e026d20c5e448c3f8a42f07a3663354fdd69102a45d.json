@@ -11,6 +11,15 @@
         "2ef16b0b7289552f0734f3df9daf6a93af6d6b8c",
         "764e15a2208aef105d998b6290ebbfe0991f8c07"
       ]
+    },
+    {
+      "task": "FR012",
+      "at": "2026-10-21T08:09:17.537Z",
+      "route": "written",
+      "branch": "FR012-event-card",
+      "commits": [
+        "b841e09787624deb6c73f50569fd5221185b1568"
+      ]
     }
   ]
 }

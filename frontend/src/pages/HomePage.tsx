@@ -8,7 +8,7 @@
 
 import { useState, useEffect } from "react";
 import type { Event } from "../lib/types";
-import EventCardPreview from "../components/EventCardPreview";
+import EventCard from "../components/EventCard";
 
 export default function HomePage() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -64,14 +64,7 @@ export default function HomePage() {
         )}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event) => (
-            <EventCardPreview
-              key={event.id}
-              title={event.title}
-              date={new Date(event.date).toLocaleDateString("de-DE")}
-              location={event.location}
-              image="/images/event-concert.png"
-              category="Event"
-            />
+            <EventCard key={event.id} event={event} />
           ))}
         </div>
       </div>
