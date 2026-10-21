@@ -40,7 +40,7 @@ function DesignPreview() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-space text-text-main">
-        <Navbar />
+        <Navbar isAuthenticated={false} user={null} onSignOut={() => {}} />
 
         <main>
           <HeroSection />
