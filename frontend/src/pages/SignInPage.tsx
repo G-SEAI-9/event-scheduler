@@ -1,13 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router";
 import type { AuthContext } from "../layouts/MainLayout";
+import type { User } from "../lib/types";
 
 type LoginResponse = {
   token: string;
-  user: {
-    id: number;
-    email: string;
-  };
+  user: User;
 };
 
 export default function SignInPage() {
@@ -55,7 +53,7 @@ export default function SignInPage() {
         throw new Error("No authentication token received.");
       }
 
-      signIn(data.token);
+      signIn(data.token, data.user);
       navigate("/");
     } catch (err) {
       setError(
