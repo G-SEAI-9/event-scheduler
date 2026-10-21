@@ -1,0 +1,34 @@
+{
+  "student": "7f7718f9fcb9302c73e38e026d20c5e448c3f8a42f07a3663354fdd69102a45d",
+  "unlocks": [
+    {
+      "task": "FR011",
+      "at": "2026-10-20T13:58:18.933Z",
+      "route": "written",
+      "branch": "FR011-home-page",
+      "commits": [
+        "d3f9aa2eb4aedfb24fb87dbbb6d54a7b06138683",
+        "2ef16b0b7289552f0734f3df9daf6a93af6d6b8c",
+        "764e15a2208aef105d998b6290ebbfe0991f8c07"
+      ]
+    },
+    {
+      "task": "FR012",
+      "at": "2026-10-21T08:09:17.537Z",
+      "route": "written",
+      "branch": "FR012-event-card",
+      "commits": [
+        "b841e09787624deb6c73f50569fd5221185b1568"
+      ]
+    },
+    {
+      "task": "FR025",
+      "at": "2026-10-21T08:41:05.101Z",
+      "route": "written",
+      "branch": "FR025-pagination",
+      "commits": [
+        "9ce67a9862eec944a25647d9a491fb3827cdc3c7"
+      ]
+    }
+  ]
+}

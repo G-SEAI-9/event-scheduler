@@ -8,6 +8,7 @@
 import { useState, useEffect, type FormEvent } from "react";
 import { useParams, useNavigate } from "react-router";
 import { getToken } from "../lib/auth";
+import type { Event } from "../lib/types";
 
 export function EditEventPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +32,7 @@ export function EditEventPage() {
         if (!response.ok) {
           throw new Error("Failed to load event data.");
         }
-        const data = await response.json();
+        const data: Event = await response.json();
         setTitle(data.title || "");
         setDescription(data.description || "");
       } catch (err: any) {
