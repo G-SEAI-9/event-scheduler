@@ -14,7 +14,7 @@ import type { ChangeEvent, SyntheticEvent } from "react";
 import { useNavigate } from "react-router";
 import { getToken } from "../lib/auth";
 
-const EVENTS_URL = "http://localhost:3001/api/events";
+const EVENTS_URL = "/api/events";
 
 interface CreateEventFormData {
   title: string;
